@@ -1,0 +1,9 @@
+{
+  "method": "k-NN distance (k=5), Roy et al. approach",
+  "k_neighbors": 5,
+  "z_factor": 0.5,
+  "training_mean_distance": 32.806365328152374,
+  "training_std_distance": 11.627847365678575,
+  "ad_threshold": 38.62028901099166,
+  "training_set_size": 1696
+}

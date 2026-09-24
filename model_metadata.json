@@ -1,0 +1,25 @@
+{
+  "model_name": "Pulmonary Toxicity Prediction Model",
+  "model_type": "ExtraTreesClassifier",
+  "date_finalized": "2026-09-12",
+  "training_data": {
+    "total_compounds": 2527,
+    "split_type": "scaffold split (class-balanced)",
+    "train_size": 1696,
+    "test_size": 415,
+    "external_validation_size": 416
+  },
+  "features": {
+    "type": "Morgan fingerprint (radius=2, nBits=1024) + RDKit descriptors",
+    "total_feature_count": 1241
+  },
+  "class_balancing": "class_weight='balanced'",
+  "performance": {
+    "scaffold_test_accuracy": 0.8,
+    "scaffold_test_roc_auc": 0.868,
+    "external_validation_accuracy": 0.84,
+    "external_validation_toxic_recall": 0.94,
+    "external_validation_nontoxic_recall": 0.69
+  },
+  "notes": "Model trained on 70% scaffold-split training data only (not retrained on full dataset). Recall for the toxic class is prioritized \u2014 the model is more likely to flag a non-toxic compound as toxic than to miss a truly toxic one."
+}
