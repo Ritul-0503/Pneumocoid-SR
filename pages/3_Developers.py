@@ -22,23 +22,23 @@ with col1:
     with intro_col:
         st.markdown("""
 #### Ritul Kumari
-**Bachelor of Pharmacy **
+**Bachelor of Pharmacy**
 
 
 """)
     st.markdown("""
 Ritul Kumari is a Bachelor of Pharmacy graduate with a focus on AI-driven drug discovery,
-computational toxicology, and pharmaceutical research. During her *research internship at IIT (BHU),
-Varanasi*, she has worked on applying machine learning and cheminformatics approaches to drug
+computational toxicology, and pharmaceutical research. During her **research internship at IIT (BHU),
+Varanasi**, she has worked on applying machine learning and cheminformatics approaches to drug
 safety and activity prediction.
 
-Alongside her B.Pharm, she has completed *executive diplomas in Pharmacovigilance, Medical Writing,
-and Clinical Data Management, and a Diploma in Regulatory Affairs*. She has also gained practical
-exposure through an *industrial internship in clinical research* and has taken part in *workshop on
-molecular docking and drug discovery*.
+Alongside her B.Pharm, she has completed **executive diplomas in Pharmacovigilance, Medical Writing,
+and Clinical Data Management, and a Diploma in Regulatory Affairs**. She has also gained practical
+exposure through an **Industrial internship in clinical research** and has taken part in **Workshop on
+molecular docking and drug discovery**.
 
-Her research experience includes *P2X7 receptor activity prediction* using computational approaches.
-Her current project, *PNEUMOCOID-SR*, is a machine learning model that predicts pulmonary toxicity
+Her research experience includes **P2X7 receptor activity prediction** using computational approaches.
+Her current project, **PNEUMOCOID-SR**, is a machine learning model that predicts pulmonary toxicity
 from molecular structure-derived features, supporting early toxicity screening.
 
 
@@ -48,12 +48,15 @@ from molecular structure-derived features, supporting early toxicity screening.
 with col2:
     st.subheader("Developer 2")
     st.markdown("""
-**Sneha Kumari**
+#### **Sneha Kumari**
 
 **Bachelor of Pharmacy**
 
 
-She is a pharmacy graduate with an interest in drug safety, pharmacovigilance, clinical research, Digital Therapeutics, and AI-driven drug discovery. Her additional professional training includes an *Executive Diploma in Pharmacovigilance*, an *Executive Diploma in Medical Writing*, an *Executive Certificate Course in Clinical Data Management*, *Executive Certificate Course in Digital Therapeutics* and an *Industrial Internship in Clinical Research*, along with NPTEL certifications in *Artificial Intelligence in Drug Discovery and Development* and *Clinical Trial Regulatory Requirements in India*.
+She is a pharmacy graduate with an interest in drug safety, pharmacovigilance, clinical research, Digital Therapeutics, and AI-driven drug discovery. 
+
+Her additional professional training includes an **Executive Diploma in Pharmacovigilance**, an **Executive Diploma in Medical Writing**, an **Executive Certificate Course in Clinical Data Management**, **Executive Certificate Course in Digital Therapeutics** and an **Industrial Internship in Clinical Research**, along with NPTEL certifications in **Artificial Intelligence in Drug Discovery and Development** and **Clinical Trial Regulatory Requirements in India**.
+
 Her current work focuses on applying machine learning and cheminformatics to toxicity prediction. This pulmonary toxicity prediction model is developed to support early-stage drug safety screening by predicting potential pulmonary toxicity from chemical structure.
 
 *[Contact / GitHub link to be added]*
