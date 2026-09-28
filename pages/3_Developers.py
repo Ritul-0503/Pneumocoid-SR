@@ -24,11 +24,7 @@ with col1:
 #### Ritul Sharma
 **Bachelor of Pharmacy (2026)**
 
-Research Intern, AI in Drug Discovery Internship Program 2026
 
-IIT (BHU), Varanasi - Dept. of Pharmaceutical Engineering & Technology
-
-Under the supervision of Dr. Rajnish Kumar
 """)
     st.markdown("""
 Ritul Sharma is a Bachelor of Pharmacy graduate (2026) with a focus on AI-driven drug discovery,
