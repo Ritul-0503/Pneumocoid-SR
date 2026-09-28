@@ -28,11 +28,11 @@ with col1:
 """)
     st.markdown("""
 Ritul Kumari is a Bachelor of Pharmacy graduate with a focus on AI-driven drug discovery,
-computational toxicology, and pharmaceutical research. During her **research internship at IIT (BHU),
+computational toxicology, and pharmaceutical research. During her **Research Internship at IIT (BHU),
 Varanasi**, she has worked on applying machine learning and cheminformatics approaches to drug
 safety and activity prediction.
 
-Alongside her B.Pharm, she has completed **executive diplomas in Pharmacovigilance, Medical Writing,
+Alongside her B.Pharm, she has completed **Executive diplomas in Pharmacovigilance, Medical Writing,
 and Clinical Data Management, and a Diploma in Regulatory Affairs**. She has also gained practical
 exposure through an **Industrial internship in clinical research** and has taken part in **Workshop on
 molecular docking and drug discovery**.
@@ -59,7 +59,7 @@ Her additional professional training includes an **Executive Diploma in Pharmaco
 
 Her current work focuses on applying machine learning and cheminformatics to toxicity prediction. This pulmonary toxicity prediction model is developed to support early-stage drug safety screening by predicting potential pulmonary toxicity from chemical structure.
 
-*[Contact / GitHub link to be added]*
+**GitHub:** [Sneha-465](https://github.com/Sneha-465)
 """)
 
 show_disclaimer()
