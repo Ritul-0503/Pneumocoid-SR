@@ -119,6 +119,7 @@ def inject_custom_css():
                      background: linear-gradient(90deg, #006D77, #087EA4, #38BDF8, #19B5A5); }
         h1, h2, h3, h4 { color: #123047; text-align: left; }
         .stMarkdown a { color: #087EA4; }
+        section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div { background-color: #38BDF8; }
         section[data-testid="stSidebar"] { border-right: 1px solid #D8EEF0; }
         .stButton>button, .stDownloadButton>button {
             background-color: #006D77; color: #FFFFFF; border: none; border-radius: 8px; }
