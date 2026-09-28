@@ -84,7 +84,7 @@ def generate_pdf_report(df, title="Pulmonary Toxicity Prediction Report"):
     pdf.cell(0, 12, title, ln=True, align="C")
     pdf.set_font("Helvetica", "", 10)
     pdf.set_text_color(0, 0, 0)
-    pdf.cell(0, 8, f"Generated: {datetime.now().strftime(\'%Y-%m-%d %H:%M:%S\')}", ln=True, align="C")
+    pdf.cell(0, 8, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True, align="C")
     pdf.ln(6)
     pdf.set_font("Helvetica", "B", 9)
     col_widths = [55, 25, 30, 35, 35]
