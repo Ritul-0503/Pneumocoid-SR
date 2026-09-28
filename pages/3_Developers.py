@@ -41,8 +41,6 @@ Her research experience includes P2X7 receptor activity prediction using computa
 Her current project, PNEUMOCOID-SR, is a machine learning model that predicts pulmonary toxicity
 from molecular structure-derived features, supporting early toxicity screening.
 
-**Role:** Machine learning pipeline development - data curation, featurization, model
-training, validation, and applicability domain design
 
 **GitHub:** [Ritul-0503](https://github.com/Ritul-0503)
 """)
@@ -50,9 +48,9 @@ training, validation, and applicability domain design
 with col2:
     st.subheader("Developer 2")
     st.markdown("""
-*[Name to be added]*
+*[Sneha Kumari]*
 
-*[Affiliation to be added]*
+**Bachelor of Pharmacy (2026)**
 
 **Role:** Web application development
 
