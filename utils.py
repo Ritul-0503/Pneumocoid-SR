@@ -113,13 +113,14 @@ def inject_custom_css():
         <style>
         .stApp { background-color: #F4FAFC; }
         header[data-testid="stHeader"] { background: transparent; }
-        .app-title { color: #000000; font-size: 2.6rem; font-weight: 800; text-align: left; margin: 0; line-height: 1.15; }
+        .app-title { color: #006D77; font-size: 2.6rem; font-weight: 800; text-align: left; margin: 0; line-height: 1.15; }
         .app-subtitle { color: #587080; text-align: left; font-size: 1.05rem; margin: 0.15rem 0 0 0; }
         .brand-bar { height: 4px; border-radius: 4px; margin: 0.75rem 0 1.5rem 0;
                      background: linear-gradient(90deg, #006D77, #087EA4, #38BDF8, #19B5A5); }
         h1, h2, h3, h4 { color: #123047; text-align: left; }
         .stMarkdown a { color: #087EA4; }
-        section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div { background-color: #38BDF8; }
+        section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div { background-color: #587080; }
+        section[data-testid="stSidebar"] a, section[data-testid="stSidebar"] span, section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] label { color: #FFFFFF !important; }
         section[data-testid="stSidebar"] { border-right: 1px solid #D8EEF0; }
         .stButton>button, .stDownloadButton>button {
             background-color: #006D77; color: #FFFFFF; border: none; border-radius: 8px; }
