@@ -98,3 +98,6 @@ st.info("""
 This is precisely the gap computational toxicity prediction aims to fill - flagging potentially
 harmful compounds early, before expensive and time-consuming experimental testing.
 """)
+
+from utils import show_disclaimer
+show_disclaimer()

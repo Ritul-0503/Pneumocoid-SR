@@ -106,9 +106,21 @@ def generate_pdf_report(df, title="Pulmonary Toxicity Prediction Report"):
 def inject_custom_css():
     st.markdown("""
         <style>
-        .app-title { color: #000000; font-size: 2.6rem; font-weight: 800; text-align: center; margin-bottom: 0px; }
-        .app-subtitle { color: #004D40; text-align: center; font-size: 1.05rem; margin-top: 0px; margin-bottom: 1.5rem; }
+        .app-title { color: #000000; font-size: 2.6rem; font-weight: 800; text-align: left; margin-bottom: 0px; }
+        .app-subtitle { color: #004D40; text-align: left; font-size: 1.05rem; margin-top: 0px; margin-bottom: 1.5rem; }
         .stButton>button { background-color: #004D40; color: white; border-radius: 8px; border: none; }
         .stButton>button:hover { background-color: #00897B; color: white; }
         </style>
     """, unsafe_allow_html=True)
+
+def show_disclaimer():
+    st.divider()
+    st.subheader("Disclaimer")
+    st.warning(
+        "PNEUMOCOID-SR is a research and educational tool. Its predictions are computational "
+        "estimates from a machine learning model and have not been validated for clinical, "
+        "regulatory, or safety-assessment decisions. They are not medical advice and do not "
+        "replace experimental testing or expert toxicological evaluation. Predictions for "
+        "compounds outside the applicability domain are less reliable, and the model can "
+        "misclassify some compounds, particularly small or structurally unusual molecules."
+    )

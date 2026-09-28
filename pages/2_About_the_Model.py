@@ -103,3 +103,6 @@ should be treated with extra caution.
 st.divider()
 st.header("Known Limitations")
 st.warning(model_metadata.get("notes", "See model documentation for known limitations."))
+
+from utils import show_disclaimer
+show_disclaimer()

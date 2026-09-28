@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from utils import (
     load_artifacts, predict_with_ad, add_to_history,
-    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL
+    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer
 )
 
 st.set_page_config(page_title="PNEUMOCOID-SR", page_icon="🫁", layout="wide")
@@ -23,6 +23,20 @@ tab1, tab2, tab3 = st.tabs(["Single Prediction", "Batch Prediction", "History"])
 with tab1:
     st.subheader("Predict Toxicity for a Single Compound")
     st.markdown(f"Don't have a SMILES string? Look it up on [PubChem]({PUBCHEM_URL}) by compound name.")
+    def set_example(smiles):
+        st.session_state["single_smiles"] = smiles
+
+    example_compounds = {
+        "Paraquat": "C[N+]1=CC=C(C=C1)C1=CC=[N+](C)C=C1",
+        "Amiodarone": "CCCCC1=C(C2=CC=CC=C2O1)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)I",
+        "Ethanol": "CCO",
+    }
+    st.markdown("**Try an example** (click one to fill the box, then press Predict):")
+    example_cols = st.columns(len(example_compounds))
+    for col, (name, smi) in zip(example_cols, example_compounds.items()):
+        with col:
+            st.button(name, key="example_" + name, on_click=set_example, args=(smi,))
+
     smiles_input = st.text_input("Enter a SMILES string", placeholder="e.g., CCO", key="single_smiles")
 
     if st.button("Predict", key="single_predict_btn"):
@@ -68,6 +82,8 @@ with tab1:
 with tab2:
     st.subheader("Predict Toxicity for Multiple Compounds")
     st.markdown(f"Upload a CSV with a column named **SMILES**. Need SMILES strings? Look them up on [PubChem]({PUBCHEM_URL}).")
+    sample_csv = pd.DataFrame({"SMILES": list(example_compounds.values())}).to_csv(index=False).encode("utf-8")
+    st.download_button("Download a sample CSV", sample_csv, "sample_smiles.csv", "text/csv", key="sample_csv_dl")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv", key="batch_upload")
 
     if uploaded_file is not None:
@@ -121,5 +137,5 @@ with tab3:
                 st.session_state.history = []
                 st.rerun()
 
-st.divider()
+show_disclaimer()
 st.caption("PNEUMOCOID-SR | ExtraTreesClassifier (calibrated) | Morgan fingerprints + RDKit descriptors")
