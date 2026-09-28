@@ -2,10 +2,11 @@
 import streamlit as st
 from utils import inject_custom_css, show_disclaimer
 
-st.set_page_config(page_title="Developers - PNEUMOCOID-SR", page_icon="\U0001FAC1", layout="wide")
+st.set_page_config(page_title="Developers - PNEUMOCOID-SR", page_icon="assets/favicon.png", layout="wide")
 inject_custom_css()
 
-st.markdown("<div class='app-title' style='font-size:2rem;'>About the Developers</div>", unsafe_allow_html=True)
+from utils import render_header
+render_header("About the Developers")
 st.divider()
 
 st.write("PNEUMOCOID-SR was developed by the following team:")

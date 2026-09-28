@@ -5,7 +5,8 @@ from utils import inject_custom_css
 st.set_page_config(page_title="About Pulmonary Toxicity - PNEUMOCOID-SR", page_icon="🫁", layout="wide")
 inject_custom_css()
 
-st.markdown("<div class='app-title' style='font-size:2rem;'>About Pulmonary Toxicity</div>", unsafe_allow_html=True)
+from utils import render_header
+render_header("About Pulmonary Toxicity")
 st.divider()
 
 st.header("The Respiratory System")

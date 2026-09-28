@@ -3,14 +3,13 @@ import streamlit as st
 import pandas as pd
 from utils import (
     load_artifacts, predict_with_ad, add_to_history,
-    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer
+    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer, render_header
 )
 
 st.set_page_config(page_title="PNEUMOCOID-SR", page_icon="🫁", layout="wide")
 inject_custom_css()
 
-st.markdown("<div class='app-title'>PNEUMOCOID-SR</div>", unsafe_allow_html=True)
-st.markdown("<div class='app-subtitle'>Pulmonary Toxicity Prediction System</div>", unsafe_allow_html=True)
+render_header("PNEUMOCOID-SR", "Pulmonary Toxicity Prediction System")
 
 model, ad_scaler, ad_nn_model, ad_metadata, model_metadata = load_artifacts()
 ad_threshold = ad_metadata["ad_threshold"]

@@ -103,15 +103,43 @@ def generate_pdf_report(df, title="Pulmonary Toxicity Prediction Report"):
         pdf.ln()
     return bytes(pdf.output())
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
+
 def inject_custom_css():
     st.markdown("""
         <style>
-        .app-title { color: #000000; font-size: 2.6rem; font-weight: 800; text-align: left; margin-bottom: 0px; }
-        .app-subtitle { color: #004D40; text-align: left; font-size: 1.05rem; margin-top: 0px; margin-bottom: 1.5rem; }
-        .stButton>button { background-color: #004D40; color: white; border-radius: 8px; border: none; }
-        .stButton>button:hover { background-color: #00897B; color: white; }
+        .stApp { background-color: #F4FAFC; }
+        header[data-testid="stHeader"] { background: transparent; }
+        .app-title { color: #000000; font-size: 2.6rem; font-weight: 800; text-align: left; margin: 0; line-height: 1.15; }
+        .app-subtitle { color: #587080; text-align: left; font-size: 1.05rem; margin: 0.15rem 0 0 0; }
+        .brand-bar { height: 4px; border-radius: 4px; margin: 0.75rem 0 1.5rem 0;
+                     background: linear-gradient(90deg, #006D77, #087EA4, #38BDF8, #19B5A5); }
+        h1, h2, h3, h4 { color: #123047; text-align: left; }
+        .stMarkdown a { color: #087EA4; }
+        section[data-testid="stSidebar"] { border-right: 1px solid #D8EEF0; }
+        .stButton>button, .stDownloadButton>button {
+            background-color: #006D77; color: #FFFFFF; border: none; border-radius: 8px; }
+        .stButton>button p, .stDownloadButton>button p { color: #FFFFFF; }
+        .stButton>button:hover, .stDownloadButton>button:hover { background-color: #087EA4; color: #FFFFFF; }
+        [data-testid="stMetric"] { background: #FFFFFF; border: 1px solid #D8EEF0; border-radius: 12px; padding: 12px 16px; }
+        div[data-baseweb="input"] { border: 1px solid #D8EEF0; border-radius: 8px; background: #FFFFFF; }
+        [data-testid="stDataFrame"] { border: 1px solid #D8EEF0; border-radius: 8px; }
         </style>
     """, unsafe_allow_html=True)
+
+def render_header(title, subtitle=None):
+    logo_col, text_col = st.columns([1, 5], vertical_alignment="center")
+    with logo_col:
+        if os.path.exists(LOGO_PATH):
+            st.image(LOGO_PATH, width=150)
+    with text_col:
+        st.markdown(f"<div class='app-title'>{title}</div>", unsafe_allow_html=True)
+        if subtitle:
+            st.markdown(f"<div class='app-subtitle'>{subtitle}</div>", unsafe_allow_html=True)
+    st.markdown("<div class='brand-bar'></div>", unsafe_allow_html=True)
 
 def show_disclaimer():
     st.divider()

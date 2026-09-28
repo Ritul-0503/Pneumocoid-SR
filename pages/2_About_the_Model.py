@@ -7,7 +7,8 @@ inject_custom_css()
 
 model, ad_scaler, ad_nn_model, ad_metadata, model_metadata = load_artifacts()
 
-st.markdown("<div class='app-title' style='font-size:2rem;'>About the Model</div>", unsafe_allow_html=True)
+from utils import render_header
+render_header("About the Model")
 st.divider()
 
 st.header("Model Overview")
