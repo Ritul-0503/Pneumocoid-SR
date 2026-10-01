@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from utils import (
     load_artifacts, predict_with_ad, add_to_history,
-    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer, render_header, get_confidence_tier, explain_invalid_smiles
+    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer, render_header, get_confidence_tier, explain_invalid_smiles, generate_single_pdf_report
 )
 
 st.set_page_config(page_title="PNEUMOCOID-SR", page_icon="🫁", layout="wide")
@@ -88,7 +88,7 @@ with tab1:
                     st.download_button("Download as CSV", generate_csv_report(single_df),
                                         "prediction_report.csv", "text/csv", key="single_csv_dl")
                 with dl_col2:
-                    st.download_button("Download as PDF", generate_pdf_report(single_df, "Single Compound Prediction Report"),
+                    st.download_button("Download as PDF", generate_single_pdf_report(result, tier, "Single Compound Prediction Report"),
                                         "prediction_report.pdf", "application/pdf", key="single_pdf_dl")
 
 with tab2:

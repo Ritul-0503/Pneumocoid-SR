@@ -111,6 +111,79 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 LOGO_PATH = os.path.join(BASE_DIR, "assets", "logo.png")
 
+def generate_single_pdf_report(result, confidence_tier, title="Pulmonary Toxicity Prediction Report"):
+    from fpdf import FPDF
+    from rdkit.Chem import Draw
+    import tempfile
+
+    pdf = FPDF()
+    pdf.add_page()
+
+    pdf.set_font("Helvetica", "B", 18)
+    pdf.set_text_color(0, 109, 119)
+    pdf.cell(0, 14, title, ln=True, align="C")
+    pdf.set_font("Helvetica", "", 10)
+    pdf.set_text_color(88, 112, 128)
+    pdf.cell(0, 8, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True, align="C")
+    pdf.ln(6)
+
+    img_path = None
+    mol = result.get("mol")
+    if mol is not None:
+        img = Draw.MolToImage(mol, size=(350, 350))
+        tmp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+        img.save(tmp.name)
+        img_path = tmp.name
+        pdf.image(img_path, x=75, w=60)
+        pdf.ln(4)
+
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.set_text_color(18, 48, 71)
+    pdf.cell(25, 8, "SMILES:")
+    pdf.set_font("Helvetica", "", 11)
+    pdf.multi_cell(0, 8, result["smiles"])
+    pdf.ln(2)
+
+    label = result["predicted_label"]
+    is_toxic = label == "Toxic"
+    pdf.set_font("Helvetica", "B", 15)
+    pdf.set_text_color(183, 28, 28) if is_toxic else pdf.set_text_color(27, 94, 32)
+    pdf.cell(0, 11, f"Prediction: {label}", ln=True)
+    pdf.set_text_color(18, 48, 71)
+    pdf.ln(1)
+
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.cell(55, 8, "Toxicity Probability:")
+    pdf.set_font("Helvetica", "", 11)
+    pdf.cell(0, 8, f"{result['toxicity_probability']:.1%}", ln=True)
+
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.cell(55, 8, "Confidence:")
+    pdf.set_font("Helvetica", "", 11)
+    pdf.cell(0, 8, confidence_tier, ln=True)
+
+    pdf.set_font("Helvetica", "B", 11)
+    pdf.cell(55, 8, "Applicability Domain:")
+    pdf.set_font("Helvetica", "", 11)
+    domain_text = "Within domain - prediction is reliable" if result["in_applicability_domain"] \
+        else "Outside domain - treat this prediction with caution"
+    pdf.cell(0, 8, domain_text, ln=True)
+    pdf.ln(6)
+
+    pdf.set_font("Helvetica", "I", 9)
+    pdf.set_text_color(88, 112, 128)
+    pdf.multi_cell(0, 6,
+        "PNEUMOCOID-SR is a research and educational tool. This prediction is a computational "
+        "estimate from a machine learning model and has not been validated for clinical, "
+        "regulatory, or safety-assessment decisions. It is not medical advice and does not "
+        "replace experimental testing or expert toxicological evaluation."
+    )
+
+    if img_path:
+        os.unlink(img_path)
+
+    return bytes(pdf.output())
+
 def inject_custom_css():
     st.markdown("""
         <style>
