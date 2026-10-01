@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from utils import (
     load_artifacts, predict_with_ad, add_to_history,
-    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer, render_header
+    generate_csv_report, generate_pdf_report, inject_custom_css, PUBCHEM_URL, show_disclaimer, render_header, get_confidence_tier, explain_invalid_smiles
 )
 
 st.set_page_config(page_title="PNEUMOCOID-SR", page_icon="🫁", layout="wide")
@@ -26,15 +26,22 @@ with tab1:
         st.session_state["single_smiles"] = smiles
 
     example_compounds = {
-        "Paraquat": "C[N+]1=CC=C(C=C1)C1=CC=[N+](C)C=C1",
-        "Amiodarone": "CCCCC1=C(C2=CC=CC=C2O1)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)I",
-        "Ethanol": "CCO",
+        "Paraquat (herbicide)": "C[N+]1=CC=C(C=C1)C1=CC=[N+](C)C=C1",
+        "Amiodarone (cardiac drug)": "CCCCC1=C(C2=CC=CC=C2O1)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)I",
+        "Ethanol (simple alcohol)": "CCO",
+        "Aspirin (NSAID)": "CC(=O)OC1=CC=CC=C1C(=O)O",
+        "Paracetamol (analgesic)": "CC(=O)NC1=CC=C(O)C=C1",
+        "Nicotine (alkaloid)": "CN1CCC[C@H]1C1=CC=CN=C1",
+        "Benzene (industrial solvent)": "C1=CC=CC=C1",
     }
-    st.markdown("**Try an example** (click one to fill the box, then press Predict):")
-    example_cols = st.columns(len(example_compounds))
-    for col, (name, smi) in zip(example_cols, example_compounds.items()):
-        with col:
-            st.button(name, key="example_" + name, on_click=set_example, args=(smi,))
+    st.markdown("**Try an example** - pick a compound, then press Predict:")
+    ex_col1, ex_col2 = st.columns([3, 1])
+    with ex_col1:
+        chosen_example = st.selectbox("Example compounds", list(example_compounds.keys()),
+                                       label_visibility="collapsed", key="example_select")
+    with ex_col2:
+        st.button("Load Example", key="load_example_btn", use_container_width=True,
+                   on_click=set_example, args=(example_compounds[st.session_state.get("example_select", list(example_compounds.keys())[0])],))
 
     smiles_input = st.text_input("Enter a SMILES string", placeholder="e.g., CCO", key="single_smiles")
 
@@ -44,7 +51,7 @@ with tab1:
         else:
             result = predict_with_ad(smiles_input.strip(), model, ad_scaler, ad_nn_model, ad_threshold)
             if result is None:
-                st.error("Invalid SMILES string - could not parse this molecule.")
+                st.error(explain_invalid_smiles(smiles_input))
             else:
                 add_to_history(result, source="Single Prediction")
                 col1, col2 = st.columns([1, 2])
@@ -55,20 +62,26 @@ with tab1:
                 with col2:
                     label = result["predicted_label"]
                     proba = result["toxicity_probability"]
+                    tier = get_confidence_tier(proba, result["in_applicability_domain"])
                     if label == "Toxic":
                         st.error(f"Prediction: **{label}**")
                     else:
                         st.success(f"Prediction: **{label}**")
-                    st.metric("Toxicity Probability", f"{proba:.1%}")
+                    metric_col1, metric_col2 = st.columns(2)
+                    with metric_col1:
+                        st.metric("Toxicity Probability", f"{proba:.1%}")
+                    with metric_col2:
+                        st.metric("Confidence", tier.replace(" (outside applicability domain)", "").replace(" (borderline)", ""))
                     if result["in_applicability_domain"]:
-                        st.info("Within applicability domain - prediction is reliable")
+                        st.info(f"Within applicability domain - {tier.lower()}")
                     else:
-                        st.warning("Outside applicability domain - treat this prediction with caution")
+                        st.warning(f"Outside applicability domain - {tier.lower()}, treat this prediction with caution")
 
                 single_df = pd.DataFrame([{
                     "SMILES": result["smiles"], "Prediction": result["predicted_label"],
                     "Toxicity Probability": result["toxicity_probability"],
-                    "In Applicability Domain": result["in_applicability_domain"]
+                    "In Applicability Domain": result["in_applicability_domain"],
+                    "Confidence Tier": tier
                 }])
                 dl_col1, dl_col2 = st.columns(2)
                 with dl_col1:
@@ -97,13 +110,15 @@ with tab2:
                     result = predict_with_ad(str(smiles), model, ad_scaler, ad_nn_model, ad_threshold)
                     if result is None:
                         results_list.append({"SMILES": smiles, "Prediction": "Invalid SMILES",
-                                              "Toxicity Probability": None, "In Applicability Domain": None})
+                                              "Toxicity Probability": None, "In Applicability Domain": None,
+                                              "Confidence Tier": None})
                     else:
                         add_to_history(result, source="Batch Prediction")
                         results_list.append({
                             "SMILES": result["smiles"], "Prediction": result["predicted_label"],
                             "Toxicity Probability": result["toxicity_probability"],
-                            "In Applicability Domain": result["in_applicability_domain"]
+                            "In Applicability Domain": result["in_applicability_domain"],
+                            "Confidence Tier": get_confidence_tier(result["toxicity_probability"], result["in_applicability_domain"])
                         })
                     progress.progress((i + 1) / len(batch_df))
 

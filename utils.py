@@ -69,7 +69,8 @@ def add_to_history(result, source="Single Prediction"):
         "Source": source, "SMILES": result["smiles"],
         "Prediction": result["predicted_label"],
         "Toxicity Probability": result["toxicity_probability"],
-        "In Applicability Domain": result["in_applicability_domain"]
+        "In Applicability Domain": result["in_applicability_domain"],
+        "Confidence Tier": get_confidence_tier(result["toxicity_probability"], result["in_applicability_domain"])
     })
 
 def generate_csv_report(df):
@@ -86,20 +87,22 @@ def generate_pdf_report(df, title="Pulmonary Toxicity Prediction Report"):
     pdf.set_text_color(0, 0, 0)
     pdf.cell(0, 8, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True, align="C")
     pdf.ln(6)
-    pdf.set_font("Helvetica", "B", 9)
-    col_widths = [55, 25, 30, 35, 35]
-    headers = ["SMILES", "Prediction", "Probability", "In Domain", "Timestamp"]
+    pdf.set_font("Helvetica", "B", 8)
+    col_widths = [42, 18, 20, 18, 32, 32]
+    headers = ["SMILES", "Prediction", "Probability", "In Domain", "Confidence Tier", "Timestamp"]
     for w, h in zip(col_widths, headers):
         pdf.cell(w, 8, h, border=1)
     pdf.ln()
-    pdf.set_font("Helvetica", "", 8)
+    pdf.set_font("Helvetica", "", 7)
     for _, row in df.iterrows():
-        smiles_display = str(row.get("SMILES", ""))[:30]
+        smiles_display = str(row.get("SMILES", ""))[:26]
+        tier_display = str(row.get("Confidence Tier", "") or "")[:26]
         pdf.cell(col_widths[0], 8, smiles_display, border=1)
         pdf.cell(col_widths[1], 8, str(row.get("Prediction", "")), border=1)
         pdf.cell(col_widths[2], 8, str(row.get("Toxicity Probability", "")), border=1)
         pdf.cell(col_widths[3], 8, str(row.get("In Applicability Domain", "")), border=1)
-        pdf.cell(col_widths[4], 8, str(row.get("Timestamp", "")), border=1)
+        pdf.cell(col_widths[4], 8, tier_display, border=1)
+        pdf.cell(col_widths[5], 8, str(row.get("Timestamp", "")), border=1)
         pdf.ln()
     return bytes(pdf.output())
 
@@ -149,6 +152,28 @@ def render_header(title, subtitle=None):
         if subtitle:
             st.markdown(f"<div class='app-subtitle'>{subtitle}</div>", unsafe_allow_html=True)
     st.markdown("<div class='brand-bar'></div>", unsafe_allow_html=True)
+
+def get_confidence_tier(toxicity_probability, in_applicability_domain):
+    if not in_applicability_domain:
+        return "Low confidence (outside applicability domain)"
+    distance_from_midpoint = abs(toxicity_probability - 0.5)
+    if distance_from_midpoint >= 0.35:
+        return "High confidence"
+    elif distance_from_midpoint >= 0.15:
+        return "Moderate confidence"
+    else:
+        return "Low confidence (borderline)"
+
+def explain_invalid_smiles(smiles):
+    s = smiles.strip()
+    if s == "":
+        return "The input is empty. Please enter a SMILES string."
+    if s.count("(") != s.count(")"):
+        return "This SMILES string has unbalanced parentheses - check for a missing '(' or ')'."
+    if s.count("[") != s.count("]"):
+        return "This SMILES string has unbalanced brackets - check for a missing '[' or ']'."
+    return ("RDKit could not parse this as a valid molecule. Double-check the SMILES syntax, "
+            "or look up the compound name on PubChem to copy its canonical SMILES.")
 
 def show_disclaimer():
     st.divider()
