@@ -32,7 +32,7 @@ def developer_card(photo_file, name, qualification, bio_markdown, github_url, gi
 row1_col1, row1_col2 = st.columns(2)
 
 with row1_col1:
-    st.subheader("Head of Operations")
+    st.subheader("Developer 1")
     developer_card(
         photo_file="developer1.png",
         name="Ritul Kumari",
@@ -52,12 +52,11 @@ Her research experience includes **P2X7 receptor activity prediction** using com
 approaches. Her current project, **PNEUMOCOID-SR**, is a machine learning model that predicts
 pulmonary toxicity from molecular structure-derived features, supporting early toxicity screening.
 """,
-        github_url="https://github.com/Ritul-0503", github_label="Ritul-0503",
-        linkedin_url="https://www.linkedin.com/in/ritul-sharma-95885b368/?isSelfProfile=true"
+        github_url="https://github.com/Ritul-0503", github_label="Ritul-0503"
     )
 
 with row1_col2:
-    st.subheader("Head of Operations")
+    st.subheader("Developer 2")
     developer_card(
         photo_file="developer2.png",
         name="Sneha Kumari",
@@ -76,18 +75,17 @@ Her current work focuses on applying machine learning and cheminformatics to tox
 prediction. This pulmonary toxicity prediction model is developed to support early-stage drug
 safety screening by predicting potential pulmonary toxicity from chemical structure.
 """,
-        github_url="https://github.com/Sneha-465", github_label="Sneha-465",
-        linkedin_url="https://www.linkedin.com/in/sneha-kumari-b02284360/?isSelfProfile=false"
+        github_url="https://github.com/Sneha-465", github_label="Sneha-465"
     )
 
 st.write("")
 row2_spacer1, row2_col, row2_spacer2 = st.columns([1, 2, 1])
 with row2_col:
-    st.subheader("Developer")
+    st.subheader("Developer 3")
     developer_card(
         photo_file="developer3.png",
         name="Utkarsh Kumar",
-        qualification="Bachelor of Pharmacy",
+        qualification="AI in Drug Discovery Intern, IIT (BHU) Varanasi",
         bio_markdown="""
 Utkarsh completed his **Bachelor of Pharmacy in 2026** and went on to complete a **research
 internship at IIT (BHU) Varanasi**, focused on AI in Drug Discovery.
