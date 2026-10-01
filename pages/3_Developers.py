@@ -58,7 +58,7 @@ pulmonary toxicity from molecular structure-derived features, supporting early t
 with row1_col2:
     st.subheader("Head of Operations")
     developer_card(
-        photo_file="developer2.png",
+        photo_file="developer 2.jpeg",
         name="Sneha Kumari",
         qualification="Bachelor of Pharmacy",
         bio_markdown="""
