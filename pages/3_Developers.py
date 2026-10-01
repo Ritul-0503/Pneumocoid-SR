@@ -85,7 +85,7 @@ with row2_col:
     developer_card(
         photo_file="developer3.png",
         name="Utkarsh Kumar",
-        qualification="AI in Drug Discovery Intern, IIT (BHU) Varanasi",
+        qualification="Bachelor of Pharmacy",
         bio_markdown="""
 Utkarsh completed his **Bachelor of Pharmacy in 2026** and went on to complete a **research
 internship at IIT (BHU) Varanasi**, focused on AI in Drug Discovery.
