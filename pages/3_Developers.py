@@ -10,21 +10,34 @@ render_header("About the Developers")
 st.write("PNEUMOCOID-SR was developed by the following team:")
 st.write("")
 
-col1, col2 = st.columns(2)
-
-with col1:
-    st.subheader("")
+def developer_card(photo_file, name, qualification, bio_markdown, github_url, github_label, linkedin_url=None):
     photo_col, intro_col = st.columns([1, 2], vertical_alignment="center")
     with photo_col:
-        p = os.path.join(BASE_DIR, "assets", "developer1.png")
+        p = os.path.join(BASE_DIR, "assets", photo_file)
         if os.path.exists(p):
             st.image(p, width=170)
     with intro_col:
-        st.markdown("""
-#### Ritul Kumari
-**Bachelor of Pharmacy**
+        st.markdown(f"""
+#### {name}
+**{qualification}**
 """)
-    st.markdown("""
+    st.markdown(bio_markdown)
+    links = f"**GitHub:** [{github_label}]({github_url})"
+    if linkedin_url:
+        links += f"  |  **LinkedIn:** [Profile]({linkedin_url})"
+    else:
+        links += "  |  **LinkedIn:** [Add link]()"
+    st.markdown(links)
+
+row1_col1, row1_col2 = st.columns(2)
+
+with row1_col1:
+    st.subheader("Developer 1")
+    developer_card(
+        photo_file="developer1.png",
+        name="Ritul Kumari",
+        qualification="Bachelor of Pharmacy",
+        bio_markdown="""
 Ritul Kumari is a Bachelor of Pharmacy graduate with a focus on AI-driven drug discovery,
 computational toxicology, and pharmaceutical research. During her **Research Internship at
 IIT (BHU), Varanasi**, she has worked on applying machine learning and cheminformatics
@@ -38,24 +51,18 @@ in a **Workshop on molecular docking and drug discovery**.
 Her research experience includes **P2X7 receptor activity prediction** using computational
 approaches. Her current project, **PNEUMOCOID-SR**, is a machine learning model that predicts
 pulmonary toxicity from molecular structure-derived features, supporting early toxicity screening.
+""",
+        github_url="https://github.com/Ritul-0503", github_label="Ritul-0503"
+    )
 
-**GitHub:** [Ritul-0503](https://github.com/Ritul-0503)  |  **LinkedIn:** [Ritul Sharma](https://www.linkedin.com/in/ritul-sharma-95885b368/?isSelfProfile=true)
-""")
-
-with col2:
-    st.subheader("")
-    photo_col2, intro_col2 = st.columns([1, 2], vertical_alignment="center")
-    with photo_col2:
-        p2 = os.path.join(BASE_DIR, "assets", "developer2.png")
-        if os.path.exists(p2):
-            st.image(p2, width=170)
-    with intro_col2:
-        st.markdown("""
-#### Sneha Kumari
-**Bachelor of Pharmacy**
-""")
-    st.markdown("""
-Sneha Kumari is a pharmacy graduate with an interest in drug safety, pharmacovigilance, clinical
+with row1_col2:
+    st.subheader("Developer 2")
+    developer_card(
+        photo_file="developer2.png",
+        name="Sneha Kumari",
+        qualification="Bachelor of Pharmacy",
+        bio_markdown="""
+She is a pharmacy graduate with an interest in drug safety, pharmacovigilance, clinical
 research, Digital Therapeutics, and AI-driven drug discovery.
 
 Her additional professional training includes an **Executive Diploma in Pharmacovigilance**,
@@ -67,9 +74,37 @@ in Drug Discovery and Development** and **Clinical Trial Regulatory Requirements
 Her current work focuses on applying machine learning and cheminformatics to toxicity
 prediction. This pulmonary toxicity prediction model is developed to support early-stage drug
 safety screening by predicting potential pulmonary toxicity from chemical structure.
+""",
+        github_url="https://github.com/Sneha-465", github_label="Sneha-465"
+    )
 
-**GitHub:** [Sneha-465](https://github.com/Sneha-465)  |  **LinkedIn:** [Sneha Kumari](https://www.linkedin.com/in/sneha-kumari-b02284360/?isSelfProfile=false)
-""")
+st.write("")
+row2_spacer1, row2_col, row2_spacer2 = st.columns([1, 2, 1])
+with row2_col:
+    st.subheader("Developer 3")
+    developer_card(
+        photo_file="developer3.png",
+        name="Utkarsh Kumar",
+        qualification="AI in Drug Discovery Intern, IIT (BHU) Varanasi",
+        bio_markdown="""
+Utkarsh completed his **Bachelor of Pharmacy in 2026** and went on to complete a **research
+internship at IIT (BHU) Varanasi**, focused on AI in Drug Discovery.
+
+He has also completed an **Executive Diploma in Pharmacovigilance**, an **Executive Diploma in
+Medical Writing**, an **Industrial Internship in Clinical Research**, an **Executive Diploma in
+Clinical Data Management**, a **Diploma in Regulatory Affairs**, and an **Advanced Diploma in
+Computer Applications**.
+
+He has previously worked on developing a **hepatotoxicity (DILI) prediction model** and a
+**P2X7 receptor activity prediction model**, and is currently developing **cardiotoxicity
+prediction models** using machine learning and cheminformatics - combining a pharmaceutical
+sciences background with applied AI to build tools for early-stage drug safety and activity
+screening. **CardioTriad-UR** is his latest project, predicting ion-channel-mediated
+cardiotoxicity risk from molecular structure.
+""",
+        github_url="https://github.com/Utkarsh-1417", github_label="Utkarsh-1417",
+        linkedin_url="https://www.linkedin.com/in/utkarsh-kumar-962046330/?isSelfProfile=false"
+    )
 
 show_disclaimer()
 st.caption("PNEUMOCOID-SR - Pulmonary Toxicity Prediction System")
