@@ -13,7 +13,7 @@ st.write("")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.subheader("Developer 1")
+    st.subheader("")
     photo_col, intro_col = st.columns([1, 2], vertical_alignment="center")
     with photo_col:
         p = os.path.join(BASE_DIR, "assets", "developer1.png")
@@ -43,7 +43,7 @@ pulmonary toxicity from molecular structure-derived features, supporting early t
 """)
 
 with col2:
-    st.subheader("Developer 2")
+    st.subheader("")
     photo_col2, intro_col2 = st.columns([1, 2], vertical_alignment="center")
     with photo_col2:
         p2 = os.path.join(BASE_DIR, "assets", "developer2.png")
