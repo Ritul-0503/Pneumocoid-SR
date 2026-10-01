@@ -52,7 +52,8 @@ Her research experience includes **P2X7 receptor activity prediction** using com
 approaches. Her current project, **PNEUMOCOID-SR**, is a machine learning model that predicts
 pulmonary toxicity from molecular structure-derived features, supporting early toxicity screening.
 """,
-        github_url="https://github.com/Ritul-0503", github_label="Ritul-0503"
+        github_url="https://github.com/Ritul-0503", github_label="Ritul-0503",
+        linkedin_url="https://www.linkedin.com/in/ritul-sharma-95885b368/?isSelfProfile=true"
     )
 
 with row1_col2:
@@ -75,7 +76,8 @@ Her current work focuses on applying machine learning and cheminformatics to tox
 prediction. This pulmonary toxicity prediction model is developed to support early-stage drug
 safety screening by predicting potential pulmonary toxicity from chemical structure.
 """,
-        github_url="https://github.com/Sneha-465", github_label="Sneha-465"
+        github_url="https://github.com/Sneha-465", github_label="Sneha-465",
+        linkedin_url="https://www.linkedin.com/in/sneha-kumari-b02284360/?isSelfProfile=false"
     )
 
 st.write("")
