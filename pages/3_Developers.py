@@ -15,7 +15,9 @@ def developer_card(photo_file, name, qualification, bio_markdown, github_url, gi
     with photo_col:
         p = os.path.join(BASE_DIR, "assets", photo_file)
         if os.path.exists(p):
+            st.markdown(f"<div style='text-align: center;'>", unsafe_allow_html=True)
             st.image(p, width=170)
+            st.markdown(f"</div>", unsafe_allow_html=True)
     with intro_col:
         st.markdown(f"""
 #### {name}
