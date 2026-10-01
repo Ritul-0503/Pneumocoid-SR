@@ -55,7 +55,7 @@ with col2:
 **Bachelor of Pharmacy**
 """)
     st.markdown("""
-She is a pharmacy graduate with an interest in drug safety, pharmacovigilance, clinical
+Sneha Kumari is a pharmacy graduate with an interest in drug safety, pharmacovigilance, clinical
 research, Digital Therapeutics, and AI-driven drug discovery.
 
 Her additional professional training includes an **Executive Diploma in Pharmacovigilance**,
