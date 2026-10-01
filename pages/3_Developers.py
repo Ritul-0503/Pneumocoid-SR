@@ -34,7 +34,7 @@ def developer_card(photo_file, name, qualification, bio_markdown, github_url, gi
 row1_col1, row1_col2 = st.columns(2)
 
 with row1_col1:
-    st.subheader("Developer 1")
+    st.subheader("Project Head")
     developer_card(
         photo_file="developer1.png",
         name="Ritul Kumari",
@@ -59,7 +59,7 @@ pulmonary toxicity from molecular structure-derived features, supporting early t
     )
 
 with row1_col2:
-    st.subheader("Developer 2")
+    st.subheader("Project Head")
     developer_card(
         photo_file="developer2.png",
         name="Sneha Kumari",
@@ -85,7 +85,7 @@ safety screening by predicting potential pulmonary toxicity from chemical struct
 st.write("")
 row2_spacer1, row2_col, row2_spacer2 = st.columns([1, 2, 1])
 with row2_col:
-    st.subheader("Developer 3")
+    st.subheader("Developer")
     developer_card(
         photo_file="developer3.png",
         name="Utkarsh Kumar",
